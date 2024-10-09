@@ -24,7 +24,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [Solution URL](https://github.com/Towbee05/frontendmentor-REACT-)
-- Live Site URL: [Live site](https://lucky-bonbon-d54890.netlify.app/)
+- Live Site URL: [Live site](https://aesthetic-paletas-08e923.netlify.app/)
 
 ## My process
 

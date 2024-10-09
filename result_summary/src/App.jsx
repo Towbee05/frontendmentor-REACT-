@@ -24,7 +24,7 @@ const FirstComponent = () => {
 const SecondComponent = () => {
     return (
         <>
-            <section className='px-8 py-6 laptop:place-self-center w-full'>
+            <section className='px-8 py-6 laptop:place-self-center w-full laptop:rounded-r-[32px] sha'>
                 <h1 className='capitalize text-custom-navy-blue text-lg laptop:text-2xl font-bold'>
                     summary
                 </h1>
@@ -34,7 +34,7 @@ const SecondComponent = () => {
                     <ThirdCard /> 
                     <FourthCard />
                 </div>
-                <button className='capitalize text-lg font-bold w-full bg-custom-navy-blue text-white py-4 rounded-[999px] mt-6 laptop:mt-10'> 
+                <button className='capitalize text-lg font-bold w-full bg-custom-navy-blue text-white py-4 rounded-[999px] mt-6 laptop:mt-10 hover:bg-gradient-to-b from-[#7755FF] to-[#2F2CE9]'> 
                     continue
                 </button>
             </section>
@@ -45,7 +45,7 @@ const SecondComponent = () => {
 export default function App () {
     return (
         <>  
-            <div className='laptop:grid grid-cols-2 max-w-[760px] w-full laptop:px-7'>
+            <div className='laptop:grid grid-cols-2 max-w-[760px] w-full bg-white rounded-[32px]'>
                 <FirstComponent />
                 <SecondComponent />
             </div>

@@ -17,6 +17,7 @@ export default {
         'custom-navy-blue' : '#303B59',
         'circle-gradient1' : 'hsla(241, 72%, 46%, 0)',
         'circle-gradient2' : 'hsla(256, 72%, 46%, 1)',
+        'background' : 'hsl(221, 100%, 96%)'
       },
       screens: {
         laptop: {
