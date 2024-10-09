@@ -10,7 +10,7 @@ const FirstComponent = () => {
                 </h1>
                 <div className='flex justify-center items-center flex-col size-[140px] laptop:size-[200px] bg-gradient-to-b from-circle-gradient2 to-circle-gradient1  rounded-full'>
                     <p className='text-white text-[56px] laptop:text-[72px] font-extrabold'> 76 </p>
-                    <p className =' font-bold laptop:text-lg' > of 100 </p>
+                    <p className ='font-bold laptop:text-lg' > of 100 </p>
                 </div>
                 <div className='text-center space-y-4'>
                     <p className='text-2xl text-white font-bold capitalize laptop:text-[32px]'>great</p>
