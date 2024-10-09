@@ -31,7 +31,7 @@ export const SecondCard = () => {
                 </div>
                 <div>
                     <p>
-                        <span className="font-bold text-custom-navy-blue laptop:text-lg"> 80 </span>
+                        <span className="font-bold text-custom-navy-blue laptop:text-lg"> 92 </span>
                         <span className="font-bold text-custom-navy-blue opacity-50 laptop:text-lg">/ 100 </span>
                     </p>
                 </div> 
@@ -52,7 +52,7 @@ export const ThirdCard = () => {
                 </div>
                 <div>
                     <p>
-                        <span className="font-bold text-custom-navy-blue laptop:text-lg"> 80 </span>
+                        <span className="font-bold text-custom-navy-blue laptop:text-lg"> 61 </span>
                         <span className="font-bold text-custom-navy-blue opacity-50 laptop:text-lg">/ 100 </span>
                     </p>
                 </div> 
@@ -73,7 +73,7 @@ export const FourthCard = () => {
                 </div>
                 <div>
                     <p>
-                        <span className="font-bold text-custom-navy-blue laptop:text-lg"> 80 </span>
+                        <span className="font-bold text-custom-navy-blue laptop:text-lg"> 73 </span>
                         <span className="font-bold text-custom-navy-blue opacity-50 laptop:text-lg">/ 100 </span>
                     </p>
                 </div> 
