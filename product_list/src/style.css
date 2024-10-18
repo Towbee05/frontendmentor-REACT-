@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    @apply font-red-hat bg-Rose-50 
+}
+
+#root{
+    @apply w-full min-h-screen grid place-items-center p-6 tablet:p-10 laptop:p-10 
+}
+
+.active{
+    .inner-active{
+        @apply border-custom-red
+    }
+}
+
+
+.loader {
+    width: fit-content;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 30px;
+    padding: 0 5px 8px 0;
+    background: repeating-linear-gradient(90deg,currentColor 0 8%,#0000 0 10%) 200% 100%/200% 3px no-repeat;
+    animation: l3 2s steps(6) infinite;
+}
+
+.loader:before {
+    content:"Loading..."
+}
+
+@keyframes l3 {to{background-position: 80% 100%}}
+
+
+::-webkit-scrollbar{
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb{
+    @apply bg-Rose-500 w-full h-5 rounded-[999px]
+}
+
+::-webkit-scrollbar-track{
+    @apply bg-Rose-100 rounded-lg
+}
+
+.hr-confirm-order:last-child{
+    @apply mt-2
+}
