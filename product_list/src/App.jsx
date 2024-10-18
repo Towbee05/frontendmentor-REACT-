@@ -4,7 +4,7 @@ import Cart from './Cart';
 import Button from './Button';
 import './style.css'
 
-const Card = ({cartItem, addedToCart, handleAddToCart, increaseCart, increaseIteminCart}) => {
+const Card = ({cartItem, addedToCart, handleAddToCart, increaseCartNo, cartno}) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -42,7 +42,7 @@ const Card = ({cartItem, addedToCart, handleAddToCart, increaseCart, increaseIte
                                 <img src={image.mobile} alt="" className='rounded-lg tablet:hidden laptop:hidden'/>
                                 <img src={image.tablet} alt="" className='rounded-lg mobile:hidden laptop:hidden'/>
                                 <img src={image.desktop} alt="" className='rounded-lg mobile:hidden tablet:hidden'/>
-                                <Button handleAddToCart= {handleAddToCart} keyID={index} cartItem={cartItem} data={data} increaseCart={increaseCart} increaseIteminCart={increaseIteminCart} />
+                                <Button handleAddToCart= {handleAddToCart} keyID={index} cartItem={cartItem} data={data} increaseCartNo={increaseCartNo} cartno={cartno} />
                             </div>
                             <div className='space-y-1'>
                                 <h1 className='text-sm text-Rose-500'> {category} </h1>
@@ -62,20 +62,25 @@ const Card = ({cartItem, addedToCart, handleAddToCart, increaseCart, increaseIte
 }
 
 
-const Main = ({cartItem, addedToCart, handleAddToCart, increaseCart, increaseIteminCart}) => {
+const Main = ({cartItem, addedToCart, handleAddToCart, increaseCart}) => {
+    const [cartno, setCartno] = useState(1);
     const [confirmedOrder, setConfirmedOrder] = useState(false);
 
     const isOrderConfirmed = () => {
         setConfirmedOrder((prevState) => !prevState )
+    };
+
+    const increaseCartNo = () => {
+        setCartno((prevCart) => prevCart + 1);
     }
     return (
         <>
             <main className='laptop:flex gap-8 max-w-[1440px] space-y-8 laptop:space-y-0 relative'>
                 <div className="max-w-[800px] space-y-8">
                     <h1 className="text-[40px] leading-[120%] font-bold text-Rose-900"> Desserts </h1>
-                    <Card addedToCart={addedToCart} handleAddToCart= {handleAddToCart} increaseCart={increaseCart} cartItem={cartItem} increaseIteminCart={increaseIteminCart}/>
+                    <Card addedToCart={addedToCart} handleAddToCart= {handleAddToCart} increaseCart={increaseCart} cartItem={cartItem} increaseCartNo={increaseCartNo} cartno={cartno}/>
                 </div>
-                <Cart cartItem={cartItem} isOrderConfirmed= {isOrderConfirmed} increaseIteminCart={increaseIteminCart}/>
+                <Cart cartItem={cartItem} isOrderConfirmed= {isOrderConfirmed} increaseCartNo={increaseCartNo} cartno={cartno}/>
             </main>
             {
                 confirmedOrder &&
@@ -98,13 +103,10 @@ export default function App () {
         } = data[productID];
         setCartItem((prevCartItem) => [...prevCartItem, {name, price, number, image: image.thumbnail}]);
     };
-    const increaseCart = (data,productID) => {
-        return data[productID];
-    };
 
     return (
         <> 
-            <Main cartItem={cartItem} addedToCart={addedToCart} handleAddToCart= {handleAddToCart} increaseCart={increaseCart} increaseIteminCart={increaseIteminCart}/>
+            <Main cartItem={cartItem} addedToCart={addedToCart} handleAddToCart= {handleAddToCart} increaseIteminCart={increaseIteminCart}/>
         </>
     )
 }

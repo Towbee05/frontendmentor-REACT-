@@ -2,24 +2,19 @@ import { useEffect, useState } from 'react';
 import './style.css'
 
 
-const Button = ({cartItem, handleAddToCart, keyID, data, increaseCart, increaseIteminCart}) => {
+const Button = ({cartItem, handleAddToCart, keyID, data, cartno, increaseCartNo, increaseIteminCart}) => {
     const [active, setActive] = useState(false);
     const [cartNo, setCartNo] = useState(1);
     const handleActive = () => {
         setActive(prevActive => !prevActive);
-        handleAddToCart(data, keyID)
-    }    
+        handleAddToCart(data, keyID);
+    };    
 
     const dereaseCart = () => {
         if (cartNo > 1){
-            setCartNo(cartNo - 1);
-        } 
+            setCartNo((prevCart) => prevCart - 1);
+        };
     };
-    const increaseCartNo = () => {
-        const dict = increaseCart(data, keyID);
-        console.log(dict);
-        
-    }; 
     return (
         <>
             { !active &&
@@ -32,7 +27,7 @@ const Button = ({cartItem, handleAddToCart, keyID, data, increaseCart, increaseI
                         <span role='button' tabIndex={0} className='size-5 grid place-items-center border border-white rounded-full' onClick={dereaseCart}>
                             <img src="/assets/images/icon-decrement-quantity.svg" alt="" />
                         </span>
-                            {cartNo}
+                            {cartno}
                         <span role='button' tabIndex={0} className='size-5 grid place-items-center border border-white rounded-full' onClick={increaseCartNo}>
                             <img src="/assets/images/icon-increment-quantity.svg" alt="" />
                         </span>

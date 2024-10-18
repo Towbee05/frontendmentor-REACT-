@@ -35,7 +35,7 @@ const Cart = ({cartItem, isOrderConfirmed, increaseIteminCart}) => {
                                             </h1>
                                             <p className='mobile:text-sm flex gap-2'>
                                                 <span className='text-custom-red font-semibold'>
-                                                    {item.number}x
+                                                    {increaseIteminCart}x
                                                 </span>
                                                 <span className='text-Rose-500 '>
                                                     @ ${item.price.toFixed(2)}
