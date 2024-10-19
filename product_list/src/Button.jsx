@@ -1,40 +1,54 @@
-import { useEffect, useState } from 'react';
-import './style.css'
+import { useState } from 'react';
+import './style.css';
 
-
-const Button = ({cartItem, handleAddToCart, keyID, data, cartno, increaseCartNo, increaseIteminCart}) => {
+const Button = ({ handleAddToCart, data, keyID }) => {
     const [active, setActive] = useState(false);
-    const [cartNo, setCartNo] = useState(1);
-    const handleActive = () => {
-        setActive(prevActive => !prevActive);
-        handleAddToCart(data, keyID);
-    };    
+    const [quantity, setQuantity] = useState(1);
 
-    const dereaseCart = () => {
-        if (cartNo > 1){
-            setCartNo((prevCart) => prevCart - 1);
-        };
+    const handleActive = () => {
+        setActive(true);
+        handleAddToCart(data, keyID, quantity); // Pass the initial quantity when first added to the cart
     };
+
+    const increaseQuantity = () => {
+        setQuantity(prevQuantity => {
+            const newQuantity = prevQuantity + 1;
+            handleAddToCart(data, keyID, newQuantity); // Update cart with new quantity
+            return newQuantity;
+        });
+    };
+
+    const decreaseQuantity = () => {
+        setQuantity(prevQuantity => {
+            if (prevQuantity > 1) {
+                const newQuantity = prevQuantity - 1;
+                handleAddToCart(data, keyID, newQuantity); // Update cart with new quantity
+                return newQuantity;
+            }
+            return prevQuantity; // Don't go below 1
+        });
+    };
+
     return (
         <>
-            { !active &&
-                    <button className='absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center gap-2 w-full max-w-40 py-3 rounded-[999px] border border-Rose-400 bg-white text-sm text-Rose-900 font-semibold' onClick={handleActive}>
-                        <img src="/assets/images/icon-add-to-cart.svg" alt="" />
-                        Add to Cart
-                    </button>
-            } { active &&
-                    <button className='absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-between w-full max-w-40 py-3 px-3 rounded-[999px] bg-custom-red text-sm font-semibold text-white'> 
-                        <span role='button' tabIndex={0} className='size-5 grid place-items-center border border-white rounded-full' onClick={dereaseCart}>
-                            <img src="/assets/images/icon-decrement-quantity.svg" alt="" />
-                        </span>
-                            {cartno}
-                        <span role='button' tabIndex={0} className='size-5 grid place-items-center border border-white rounded-full' onClick={increaseCartNo}>
-                            <img src="/assets/images/icon-increment-quantity.svg" alt="" />
-                        </span>
-                    </button>
-                }
+            {!active ? (
+                <button className='absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center gap-2 w-full max-w-40 py-3 rounded-[999px] border border-Rose-400 bg-white text-sm text-Rose-900 font-semibold' onClick={handleActive}>
+                    <img src="/assets/images/icon-add-to-cart.svg" alt="Add to Cart" />
+                    Add to Cart
+                </button>
+            ) : (
+                <button className='absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-between w-full max-w-40 py-3 px-3 rounded-[999px] bg-custom-red text-sm font-semibold text-white'> 
+                    <span role='button' tabIndex={0} className='size-5 grid place-items-center border border-white rounded-full' onClick={decreaseQuantity}>
+                        <img src="/assets/images/icon-decrement-quantity.svg" alt="Decrease Quantity" />
+                    </span>
+                    {quantity}
+                    <span role='button' tabIndex={0} className='size-5 grid place-items-center border border-white rounded-full' onClick={increaseQuantity}>
+                        <img src="/assets/images/icon-increment-quantity.svg" alt="Increase Quantity" />
+                    </span>
+                </button>
+            )}
         </>
-    )
-}
+    );
+};
 
 export default Button;

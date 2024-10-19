@@ -1,6 +1,10 @@
-import './style.css'
+import './style.css';
 
-export default function ConfirmOrder ({ cartItem, isOrderConfirmed, increaseIteminCart }){
+export default function ConfirmOrder({ cartItem, isOrderConfirmed }) {
+    const calculateOrderTotal = () => {
+        return cartItem.reduce((total, item) => total + item.price * item.number, 0).toFixed(2);
+    };
+
     return (
         <section className='min-h-screen fixed top-0 left-0 right-0 w-full bg-black bg-opacity-60 grid place-items-center'>
             <div className='bg-white px-6 pb-6 pt-10 laptop:p-10 space-y-8 rounded-xl mobile:w-full max-h-[600px] overflow-y-scroll mobile:max-w-[350px]'>
@@ -8,7 +12,7 @@ export default function ConfirmOrder ({ cartItem, isOrderConfirmed, increaseItem
                     <img src="/assets/images/icon-order-confirmed.svg" alt="" />
                     <div className='space-y-2'>
                         <h1 className='capitalize text-[40px] leading-[120%] font-bold text-Rose-900'>
-                            order confirmed
+                            Order Confirmed
                         </h1>
                         <p className='text-Rose-500'>
                             We hope you enjoy your food!
@@ -21,14 +25,14 @@ export default function ConfirmOrder ({ cartItem, isOrderConfirmed, increaseItem
                             <div key={index}>
                                 <div className='flex justify-between items-center'>
                                     <div className='flex gap-4 items-center'>
-                                        <img src={item.image} alt="" className='size-12 rounded'/>
+                                        <img src={item.image} alt="" className='size-12 rounded' />
                                         <div className='flex flex-col gap-2'>
                                             <h1 className='text-sm font-semibold capitalize'>
                                                 {item.name}
                                             </h1>
                                             <p className='flex gap-2'>
                                                 <span className='text-custom-red'>
-                                                    {increaseIteminCart}x
+                                                    {item.number}x  {/* Use item.number to display the correct quantity */}
                                                 </span>
                                                 <span className='text-Rose-500'>
                                                     @${item.price.toFixed(2)}
@@ -37,26 +41,26 @@ export default function ConfirmOrder ({ cartItem, isOrderConfirmed, increaseItem
                                         </div>
                                     </div>
                                     <p className='font-semibold'>
-                                        ${(Number(item.price) * Number(increaseIteminCart)).toFixed(2)}
+                                        ${(item.price * item.number).toFixed(2)}  {/* Calculate total price for each item */}
                                     </p>
                                 </div>
-                                <hr className='hr-confirm-order'/>
+                                <hr className='hr-confirm-order' />
                             </div>
                         ))}
                     </div>
                     <div className='text-Rose-900 flex justify-between items-center pt-6'>
                         <p className='text-sm capitalize'>
-                            order total
+                            Order Total
                         </p>
                         <p className='text-2xl font-bold'> 
-                            $45.60
+                            ${calculateOrderTotal()} {/* Calculate total of all items in the cart */}
                         </p>
                     </div>
                 </div>
                 <button className='capitalize bg-custom-red w-full h-14 rounded-[999px] text-white' onClick={isOrderConfirmed}>
-                    start new order
+                    Start New Order
                 </button>
             </div>
         </section>
-    )
+    );
 };
