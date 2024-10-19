@@ -4,7 +4,7 @@ import Cart from './Cart';
 import Button from './Button';
 import './style.css';
 
-const Card = ({ cartItem, handleAddToCart }) => {
+const Card = ({ handleAddToCart }) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -13,7 +13,6 @@ const Card = ({ cartItem, handleAddToCart }) => {
         const fetchData = async () => {
             try {
                 const res = await fetch('data.json');
-                
                 if (!res.ok) {
                     throw new Error('Server Error');
                 }
@@ -26,7 +25,7 @@ const Card = ({ cartItem, handleAddToCart }) => {
                 setLoading(false);
             }
         };
-        fetchData();    
+        fetchData();
     }, []);
 
     return (
@@ -40,8 +39,8 @@ const Card = ({ cartItem, handleAddToCart }) => {
                         <img src={image.desktop} alt="" className='rounded-lg mobile:hidden tablet:hidden' />
                         <Button 
                             handleAddToCart={handleAddToCart} 
-                            keyID={index} 
                             data={{ name, price, image }} 
+                            keyID={index} 
                         />
                     </div>
                     <div className='space-y-1'>
@@ -55,7 +54,7 @@ const Card = ({ cartItem, handleAddToCart }) => {
     );
 }
 
-const Main = ({ cartItem, handleAddToCart, increaseIteminCart }) => {
+const Main = ({ cartItem, handleAddToCart }) => {
     const [confirmedOrder, setConfirmedOrder] = useState(false);
 
     const isOrderConfirmed = () => {
@@ -67,9 +66,9 @@ const Main = ({ cartItem, handleAddToCart, increaseIteminCart }) => {
             <main className='laptop:flex gap-8 max-w-[1440px] space-y-8 laptop:space-y-0 relative'>
                 <div className="max-w-[800px] space-y-8">
                     <h1 className="text-[40px] leading-[120%] font-bold text-Rose-900"> Desserts </h1>
-                    <Card handleAddToCart={handleAddToCart} cartItem={cartItem} />
+                    <Card handleAddToCart={handleAddToCart} />
                 </div>
-                <Cart cartItem={cartItem} isOrderConfirmed={isOrderConfirmed} increaseIteminCart={increaseIteminCart} />
+                <Cart cartItem={cartItem} isOrderConfirmed={isOrderConfirmed} />
             </main>
             {confirmedOrder && <ConfirmOrder cartItem={cartItem} isOrderConfirmed={isOrderConfirmed} />}
         </>
@@ -79,61 +78,29 @@ const Main = ({ cartItem, handleAddToCart, increaseIteminCart }) => {
 export default function App() {
     const [cartItem, setCartItem] = useState([]);
 
-    const handleAddToCart = (data, productID) => {
-        const existingItem = cartItem.find(item => item.name === data.name);
-        if (existingItem) {
-            // If item exists, increase quantity
+    const handleAddToCart = (data, keyID, quantity) => {
+        const existingItemIndex = cartItem.findIndex(item => item.name === data.name);
+        
+        if (existingItemIndex > -1) {
+            // If item exists, update quantity
             setCartItem(prevCartItem =>
-                prevCartItem.map(item =>
-                    item.name === data.name 
-                        ? { ...item, number: item.number + 1 } 
+                prevCartItem.map((item, index) => 
+                    index === existingItemIndex 
+                        ? { ...item, number: quantity } // Update quantity
                         : item
                 )
             );
         } else {
-            // If item doesn't exist, add it
+            // If item doesn't exist, add it with the provided quantity
             const { name, price, image } = data;
             setCartItem(prevCartItem => [
                 ...prevCartItem, 
-                { name, price, number: 1, image: image.thumbnail }
+                { name, price, number: quantity, image: image.thumbnail } // Add new item
             ]);
         }
     };
 
-    const increaseIteminCart = (itemName) => {
-        setCartItem(prevCartItem =>
-            prevCartItem.map(item =>
-                item.name === itemName 
-                    ? { ...item, number: item.number + 1 } 
-                    : item
-            )
-        );
-    };
-
-    const decreaseIteminCart = (itemName) => {
-        setCartItem(prevCartItem => {
-            const existingItem = prevCartItem.find(item => item.name === itemName);
-            if (existingItem.number > 1) {
-                return prevCartItem.map(item =>
-                    item.name === itemName 
-                        ? { ...item, number: item.number - 1 } 
-                        : item
-                );
-            } else {
-                // If quantity is 1, remove item from cart
-                return prevCartItem.filter(item => item.name !== itemName);
-            }
-        });
-    };
-
     return (
-        <> 
-            <Main 
-                cartItem={cartItem} 
-                handleAddToCart={handleAddToCart} 
-                increaseIteminCart={increaseIteminCart} 
-                decreaseIteminCart={decreaseIteminCart} 
-            />
-        </>
+        <Main cartItem={cartItem} handleAddToCart={handleAddToCart} />
     );
 }
