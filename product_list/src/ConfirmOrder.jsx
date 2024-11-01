@@ -1,17 +1,9 @@
-import './style.css';
+import './style.css'
 
-export default function ConfirmOrder({ cartItem, isOrderConfirmed }) {
-    const calculateOrderTotal = () => {
-        return cartItem.reduce((total, item) => total + item.price * item.number, 0).toFixed(2);
-    };
-
-<<<<<<< HEAD
 export default function ConfirmOrder ({ cartItem, isOrderConfirmed, totalorder }){
     const startneworder = () => {    
         window.location.reload();
     }
-=======
->>>>>>> 593fc3aa1795d0f56b7d5424f7521b32b79dd23e
     return (
         <section className='min-h-screen fixed top-0 left-0 right-0 w-full bg-black bg-opacity-60 grid place-items-center'>
             <div className='bg-white px-6 pb-6 pt-10 laptop:p-10 space-y-8 rounded-xl mobile:w-full max-h-[600px] overflow-y-scroll mobile:max-w-[350px]'>
@@ -19,7 +11,7 @@ export default function ConfirmOrder ({ cartItem, isOrderConfirmed, totalorder }
                     <img src="/assets/images/icon-order-confirmed.svg" alt="" />
                     <div className='space-y-2'>
                         <h1 className='capitalize text-[40px] leading-[120%] font-bold text-Rose-900'>
-                            Order Confirmed
+                            order confirmed
                         </h1>
                         <p className='text-Rose-500'>
                             We hope you enjoy your food!
@@ -32,23 +24,14 @@ export default function ConfirmOrder ({ cartItem, isOrderConfirmed, totalorder }
                             <div key={index}>
                                 <div className='flex justify-between items-center'>
                                     <div className='flex gap-4 items-center'>
-<<<<<<< HEAD
                                         <img src={item.image.thumbnail} alt="" className='size-12 rounded'/>
-=======
-                                        <img src={item.image} alt="" className='size-12 rounded' />
->>>>>>> 593fc3aa1795d0f56b7d5424f7521b32b79dd23e
                                         <div className='flex flex-col gap-2'>
                                             <h1 className='text-sm font-semibold capitalize'>
                                                 {item.name}
                                             </h1>
                                             <p className='flex gap-2'>
-<<<<<<< HEAD
                                                 <span className='text-custom-red font-semibold'>
                                                     {item.quantity}x
-=======
-                                                <span className='text-custom-red'>
-                                                    {item.number}x  {/* Use item.number to display the correct quantity */}
->>>>>>> 593fc3aa1795d0f56b7d5424f7521b32b79dd23e
                                                 </span>
                                                 <span className='text-Rose-500'>
                                                     @{Number(item.price).toFixed(2)}
@@ -57,7 +40,6 @@ export default function ConfirmOrder ({ cartItem, isOrderConfirmed, totalorder }
                                         </div>
                                     </div>
                                     <p className='font-semibold'>
-<<<<<<< HEAD
                                         {/* ${(Number(item.price) * Number(increaseIteminCart)).toFixed(2)} */}
                                         {
                                             item.totalprice ? 
@@ -65,37 +47,25 @@ export default function ConfirmOrder ({ cartItem, isOrderConfirmed, totalorder }
                                             :
                                                 `$${Number(item.price).toFixed(2)}`
                                         }
-=======
-                                        ${(item.price * item.number).toFixed(2)}  {/* Calculate total price for each item */}
->>>>>>> 593fc3aa1795d0f56b7d5424f7521b32b79dd23e
                                     </p>
                                 </div>
-                                <hr className='hr-confirm-order' />
+                                <hr className='hr-confirm-order'/>
                             </div>
                         ))}
                     </div>
                     <div className='text-Rose-900 flex justify-between items-center pt-6'>
                         <p className='text-sm capitalize'>
-                            Order Total
+                            order total
                         </p>
                         <p className='text-2xl font-bold'> 
-<<<<<<< HEAD
                             ${totalorder.toFixed(2)}
                         </p>
                     </div>
                 </div>
                 <button className='capitalize bg-custom-red w-full h-14 rounded-[999px] text-white' onClick={startneworder}>
                     start new order
-=======
-                            ${calculateOrderTotal()} {/* Calculate total of all items in the cart */}
-                        </p>
-                    </div>
-                </div>
-                <button className='capitalize bg-custom-red w-full h-14 rounded-[999px] text-white' onClick={isOrderConfirmed}>
-                    Start New Order
->>>>>>> 593fc3aa1795d0f56b7d5424f7521b32b79dd23e
                 </button>
             </div>
         </section>
-    );
+    )
 };

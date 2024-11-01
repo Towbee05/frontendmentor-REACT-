@@ -1,7 +1,6 @@
-import React from 'react';
-import './style.css';
+import { useState, useEffect } from 'react';
+import './style.css'
 
-<<<<<<< HEAD
 
 const Cart = ({cartItem, isOrderConfirmed, totalorder, removeFromCart}) => {
     const [data, setData] = useState(null);
@@ -82,33 +81,10 @@ const Cart = ({cartItem, isOrderConfirmed, totalorder, removeFromCart}) => {
                             </div>
                         )
                     }
-=======
-const Cart = ({ cartItem, isOrderConfirmed }) => {
-    return (
-        <div className='cart'>
-            <h2 className='font-bold text-lg'>Your Cart</h2>
-            {cartItem.length === 0 ? (
-                <p className='text-Rose-500'>Your cart is empty.</p>
-            ) : (
-                <div>
-                    {cartItem.map((item, index) => (
-                        <div key={index} className='flex justify-between items-center py-2'>
-                            <div className='flex items-center'>
-                                <img src={item.image} alt={item.name} className='w-12 h-12 rounded' />
-                                <div className='ml-2'>
-                                    <h3 className='text-sm font-semibold'>{item.name}</h3>
-                                    <p className='text-sm text-Rose-500'>{item.number} x ${item.price.toFixed(2)}</p>
-                                </div>
-                            </div>
-                            <p className='font-bold'>${(item.number * item.price).toFixed(2)}</p>
-                        </div>
-                    ))}
-                    <button onClick={isOrderConfirmed} className='bg-custom-red text-white rounded-full py-2 px-4'>Confirm Order</button>
->>>>>>> 593fc3aa1795d0f56b7d5424f7521b32b79dd23e
                 </div>
-            )}
-        </div>
-    );
+            </div>
+        </section>
+    )
 };
 
-export default Cart;
+export default Cart
