@@ -2,21 +2,18 @@ import { useState, useEffect } from 'react';
 import './style.css'
 
 
-const Cart = ({cartItem, isOrderConfirmed, increaseIteminCart}) => {
+const Cart = ({cartItem, isOrderConfirmed, totalorder, removeFromCart}) => {
     const [data, setData] = useState(null);
     const [itemsInCart, setItemsInCart] = useState(0);
-    const [totalOrder, setTotalOrder] = useState([]);
-    
+     
+    const removeItem = (e) => {
+        const index = Number(e.currentTarget.parentElement.dataset.index);
+        removeFromCart(cartItem, index);
+    };
+
     useEffect(() => {
         setItemsInCart(cartItem.length);
-        const totalOrderHandler = cartItem.forEach((item) => {
-            const {number, price} = item;
-            return number * price
-        });
-        setTotalOrder(totalOrderHandler);
-        console.log(cartItem);
-        
-    }, [cartItem])
+    }, [cartItem]);
     
     return (
         <section className='w-auto'>
@@ -28,24 +25,28 @@ const Cart = ({cartItem, isOrderConfirmed, increaseIteminCart}) => {
                         <>
                             <div className='space-y-6'>
                             { cartItem.map((item, index) => 
-                                    <div className='flex justify-between items-center' key={index}>
+                                    <div className='flex justify-between items-center' key={index} data-index={index}>
                                         <div className='space-y-2'>
                                             <h1 className='mobile:text-sm text-Rose-900 capitalize font-semibold'>
                                                 {item.name}
                                             </h1>
                                             <p className='mobile:text-sm flex gap-2'>
                                                 <span className='text-custom-red font-semibold'>
-                                                    {increaseIteminCart}x
+                                                    {item.quantity}x
                                                 </span>
                                                 <span className='text-Rose-500 '>
                                                     @ ${item.price.toFixed(2)}
                                                 </span>
                                                 <span className='text-Rose-500 font-semibold'>
-                                                    ${(Number(item.price) * Number(increaseIteminCart)).toFixed(2)}
+                                                    { item.totalprice ? 
+                                                        `$${(Number(item.totalprice)).toFixed(2)}`
+                                                        :
+                                                        `$${(item.price).toFixed(2)}`
+                                                    }
                                                 </span>
                                             </p>
                                         </div>
-                                        <button className='mobile:size-5 rounded-full border border-Rose-400 grid place-items-center'>
+                                        <button className='size-5 rounded-full border border-Rose-400 grid place-items-center' onClick={(e) => removeItem(e)}>
                                             <img src='/assets/images/icon-remove-item.svg' />
                                         </button>
                                     </div>
@@ -58,7 +59,7 @@ const Cart = ({cartItem, isOrderConfirmed, increaseIteminCart}) => {
                                     order total
                                 </p>
                                 <p className='font-bold mobile:text-2xl'>
-                                    $46.50
+                                    ${totalorder.toFixed(2)}
                                 </p>
                             </div>
                             <div className='flex items-center justify-center gap-2 w-full py-4 bg-Rose-50 rounded-lg'>

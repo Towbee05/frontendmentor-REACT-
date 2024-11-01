@@ -1,6 +1,9 @@
 import './style.css'
 
-export default function ConfirmOrder ({ cartItem, isOrderConfirmed, increaseIteminCart }){
+export default function ConfirmOrder ({ cartItem, isOrderConfirmed, totalorder }){
+    const startneworder = () => {    
+        window.location.reload();
+    }
     return (
         <section className='min-h-screen fixed top-0 left-0 right-0 w-full bg-black bg-opacity-60 grid place-items-center'>
             <div className='bg-white px-6 pb-6 pt-10 laptop:p-10 space-y-8 rounded-xl mobile:w-full max-h-[600px] overflow-y-scroll mobile:max-w-[350px]'>
@@ -21,23 +24,29 @@ export default function ConfirmOrder ({ cartItem, isOrderConfirmed, increaseItem
                             <div key={index}>
                                 <div className='flex justify-between items-center'>
                                     <div className='flex gap-4 items-center'>
-                                        <img src={item.image} alt="" className='size-12 rounded'/>
+                                        <img src={item.image.thumbnail} alt="" className='size-12 rounded'/>
                                         <div className='flex flex-col gap-2'>
                                             <h1 className='text-sm font-semibold capitalize'>
                                                 {item.name}
                                             </h1>
                                             <p className='flex gap-2'>
-                                                <span className='text-custom-red'>
-                                                    {increaseIteminCart}x
+                                                <span className='text-custom-red font-semibold'>
+                                                    {item.quantity}x
                                                 </span>
                                                 <span className='text-Rose-500'>
-                                                    @${item.price.toFixed(2)}
+                                                    @{Number(item.price).toFixed(2)}
                                                 </span>
                                             </p>
                                         </div>
                                     </div>
                                     <p className='font-semibold'>
-                                        ${(Number(item.price) * Number(increaseIteminCart)).toFixed(2)}
+                                        {/* ${(Number(item.price) * Number(increaseIteminCart)).toFixed(2)} */}
+                                        {
+                                            item.totalprice ? 
+                                                `$${Number(item.totalprice).toFixed(2)}`
+                                            :
+                                                `$${Number(item.price).toFixed(2)}`
+                                        }
                                     </p>
                                 </div>
                                 <hr className='hr-confirm-order'/>
@@ -49,11 +58,11 @@ export default function ConfirmOrder ({ cartItem, isOrderConfirmed, increaseItem
                             order total
                         </p>
                         <p className='text-2xl font-bold'> 
-                            $45.60
+                            ${totalorder.toFixed(2)}
                         </p>
                     </div>
                 </div>
-                <button className='capitalize bg-custom-red w-full h-14 rounded-[999px] text-white' onClick={isOrderConfirmed}>
+                <button className='capitalize bg-custom-red w-full h-14 rounded-[999px] text-white' onClick={startneworder}>
                     start new order
                 </button>
             </div>

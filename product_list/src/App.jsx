@@ -62,16 +62,17 @@ const Card = ({cartItem, addedToCart, handleAddToCart, increaseCartNo, cartno}) 
 }
 
 
-const Main = ({cartItem, addedToCart, handleAddToCart, increaseCart}) => {
+const Main = ({cartItem, addedToCart, handleAddToCart, increaseCart, totalorder, removeFromCart}) => {
     const [cartno, setCartno] = useState(1);
     const [confirmedOrder, setConfirmedOrder] = useState(false);
 
     const isOrderConfirmed = () => {
-        setConfirmedOrder((prevState) => !prevState )
-    };
+        setConfirmedOrder((prevState) => !prevState );
+    };    
 
-    const increaseCartNo = () => {
-        setCartno((prevCart) => prevCart + 1);
+    const increaseCartNo = (data, productID) => {
+        data[productID]['number'] = cartno;
+        return data[productID]['number'] += 1;
     }
     return (
         <>
@@ -80,11 +81,11 @@ const Main = ({cartItem, addedToCart, handleAddToCart, increaseCart}) => {
                     <h1 className="text-[40px] leading-[120%] font-bold text-Rose-900"> Desserts </h1>
                     <Card addedToCart={addedToCart} handleAddToCart= {handleAddToCart} increaseCart={increaseCart} cartItem={cartItem} increaseCartNo={increaseCartNo} cartno={cartno}/>
                 </div>
-                <Cart cartItem={cartItem} isOrderConfirmed= {isOrderConfirmed} increaseCartNo={increaseCartNo} cartno={cartno}/>
+                <Cart cartItem={cartItem} isOrderConfirmed= {isOrderConfirmed} increaseCartNo={increaseCartNo} cartno={cartno} totalorder= {totalorder} removeFromCart={removeFromCart} />
             </main>
             {
                 confirmedOrder &&
-                <ConfirmOrder cartItem={cartItem} isOrderConfirmed= {isOrderConfirmed} increaseIteminCart={increaseIteminCart} />
+                <ConfirmOrder cartItem={cartItem} isOrderConfirmed= {isOrderConfirmed} totalorder={totalorder} />
             }
         </>
     )
@@ -95,18 +96,42 @@ export default function App () {
     const [addedToCart, setAddedToCart] = useState(false);
     const [increaseIteminCart, setIncreaseIteminCart] = useState(1)
     const [data, setData] = useState([]);
+    const [totalorder, setTotalorder] = useState(0);
 
-    const handleAddToCart = (data, productID) => {
-        data[productID]['number'] = increaseIteminCart;
-        const {
-            name, price, number, image
-        } = data[productID];
-        setCartItem((prevCartItem) => [...prevCartItem, {name, price, number, image: image.thumbnail}]);
+    const handleAddToCart = (data, keyID, quantity, increase) => {
+        const newdata = data[keyID];
+        // Check existence of the product
+        const productIndex = cartItem.findIndex(item => item.name === newdata.name);
+
+        // Add quantity for existing products
+        if (productIndex > -1) {
+            if (increase) {
+                setCartItem(prevItem => prevItem.map((item) => item.name === newdata.name ? {...item, quantity: (item.quantity || 1) + 1 , totalprice: ((item.quantity || 0) + 1) * item.price } : item));
+            } else {
+                setCartItem(prevItem => prevItem.map((item) => item.name === newdata.name ? {...item, quantity: (item.quantity || 1) - 1 , totalprice: ((item.quantity || 0) - 1) * item.price } : item));
+            }
+        } else{
+            setCartItem(prevItem => [...prevItem,{ ...newdata, quantity : 1, totalprice : newdata.price * newdata.quantity}]);
+        };
+    };    
+
+    const removeFromCart = (data, keyID) => {
+        const dataName = data[keyID].name;
+        const items = data.filter(datum => dataName !== datum.name );
+        setCartItem(items);
     };
 
+    useEffect(() => {
+        const total = cartItem.reduce((sum, item) => {
+            return sum + (item.totalprice || item.price);
+        }, 0);    
+
+        setTotalorder(total);
+    }, [cartItem]);
+    
     return (
         <> 
-            <Main cartItem={cartItem} addedToCart={addedToCart} handleAddToCart= {handleAddToCart} increaseIteminCart={increaseIteminCart}/>
+            <Main cartItem={cartItem} addedToCart={addedToCart} handleAddToCart= {handleAddToCart} increaseIteminCart={increaseIteminCart} totalorder={totalorder} removeFromCart={removeFromCart} />
         </>
     )
 }
