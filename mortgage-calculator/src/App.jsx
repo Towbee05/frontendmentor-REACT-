@@ -195,8 +195,6 @@ function App() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        
         let { amount, term, rate, type } = data;
 
         if (!amount) {setErrors(prevData => ({...prevData, 'amount' : 'This field is required'}))}
@@ -232,7 +230,6 @@ function App() {
             setMortgage(mortgagePayment.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}));
             settotalMortgage(totalMortgagePayment.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}));  
         }
-        console.log(typeof mortgage);
         
     };
 
