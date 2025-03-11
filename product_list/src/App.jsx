@@ -61,7 +61,6 @@ const Card = ({cartItem, addedToCart, handleAddToCart, increaseCartNo, cartno}) 
     )
 }
 
-
 const Main = ({cartItem, addedToCart, handleAddToCart, increaseCart, totalorder, removeFromCart}) => {
     const [cartno, setCartno] = useState(1);
     const [confirmedOrder, setConfirmedOrder] = useState(false);
@@ -94,7 +93,6 @@ const Main = ({cartItem, addedToCart, handleAddToCart, increaseCart, totalorder,
 export default function App () {
     const [cartItem, setCartItem] = useState([]);
     const [addedToCart, setAddedToCart] = useState(false);
-    const [increaseIteminCart, setIncreaseIteminCart] = useState(1)
     const [data, setData] = useState([]);
     const [totalorder, setTotalorder] = useState(0);
 
@@ -131,7 +129,7 @@ export default function App () {
     
     return (
         <> 
-            <Main cartItem={cartItem} addedToCart={addedToCart} handleAddToCart= {handleAddToCart} increaseIteminCart={increaseIteminCart} totalorder={totalorder} removeFromCart={removeFromCart} />
+            <Main cartItem={cartItem} addedToCart={addedToCart} handleAddToCart= {handleAddToCart}  totalorder={totalorder} removeFromCart={removeFromCart} />
         </>
     )
 }
